@@ -1,0 +1,73 @@
+---
+import '@fontsource-variable/caveat';
+import '@fontsource-variable/nunito';
+import '../styles/tokens.css';
+import '../styles/global.css';
+import { site } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = `${site.name} — Blends artesanais de chá, café e capuccino`,
+  description = `${site.slogan} Cápsulas artesanais de chá, café e capuccino e pirulitos para drinks, feitos à mão em Foz do Iguaçu. Peça pelo WhatsApp: ${site.whatsappDisplay}.`,
+} = Astro.props;
+
+// sem domínio definido ainda: og:image fica relativo. Após o deploy, defina
+// `site` em astro.config.mjs (ex.: 'https://aurea-blends.pages.dev') e o
+// og:image vira URL absoluta automaticamente.
+const ogImage = Astro.site ? new URL('/og-image.jpg', Astro.site).href : '/og-image.jpg';
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: site.name,
+  slogan: site.slogan,
+  description,
+  sameAs: [`https://instagram.com/${site.instagram}`],
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Foz do Iguaçu',
+    addressRegion: 'PR',
+    addressCountry: 'BR',
+  },
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'customer service',
+    telephone: `+${site.whatsapp}`,
+    availableLanguage: 'pt-BR',
+  },
+};
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={`Logotipo da ${site.name}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Pular para o conteúdo</a>
+    <slot />
+  </body>
+</html>

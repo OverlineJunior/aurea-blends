@@ -1,0 +1,65 @@
+---
+import { testimonials } from '../data/testimonials';
+---
+
+<section id="depoimentos" class="section">
+  <div class="container">
+    <div class="section-head">
+      <p class="section-eyebrow">Depoimentos</p>
+      <h2 class="section-title">Quem provou, se encantou</h2>
+      <p class="section-sub">Palavras de quem transformou a caneca em ritual.</p>
+    </div>
+
+    <div class="testimonials-grid">
+      {
+        testimonials.map((testimonial) => (
+          <figure class="testimonial">
+            <span class="quote-mark" aria-hidden="true">
+              “
+            </span>
+            <blockquote>
+              <p>{testimonial.text}</p>
+            </blockquote>
+            <figcaption>{testimonial.name} · {testimonial.city}</figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 1.5rem;
+  }
+
+  .testimonial {
+    display: grid;
+    gap: 0.6rem;
+    align-content: start;
+    padding: 1.8rem 1.6rem 1.6rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .quote-mark {
+    font-family: var(--font-display);
+    font-size: 3.2rem;
+    line-height: 0.6;
+    color: var(--color-accent);
+  }
+
+  .testimonial blockquote p {
+    font-size: 1rem;
+  }
+
+  .testimonial figcaption {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: var(--color-text-muted);
+  }
+</style>

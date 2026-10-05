@@ -1,0 +1,47 @@
+---
+import { buildWhatsAppLink, GENERAL_MESSAGE } from '../lib/whatsapp';
+import { whatsappIcon } from '../lib/icons';
+---
+
+<section class="final-cta">
+  <div class="container final-cta-inner">
+    <h2>Que tal criar seu momento?</h2>
+    <p>
+      Chame a gente no WhatsApp, conte o que você procura e monte seu kit de blends com a nossa
+      ajuda.
+    </p>
+    <a
+      class="btn btn-inverse btn-lg"
+      href={buildWhatsAppLink(GENERAL_MESSAGE)}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <Fragment set:html={whatsappIcon} />
+      Falar no WhatsApp
+    </a>
+  </div>
+</section>
+
+<style>
+  .final-cta {
+    padding-block: clamp(3.5rem, 8vw, 5.5rem);
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    scroll-margin-top: 4.5rem;
+  }
+
+  .final-cta-inner {
+    display: grid;
+    gap: 1.1rem;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .final-cta h2 {
+    font-size: clamp(2.6rem, 6vw, 3.6rem);
+  }
+
+  .final-cta p {
+    max-width: 36rem;
+  }
+</style>

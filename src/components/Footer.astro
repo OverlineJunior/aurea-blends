@@ -1,0 +1,126 @@
+---
+import { Image } from 'astro:assets';
+import { site } from '../data/site';
+import { buildWhatsAppLink, GENERAL_MESSAGE } from '../lib/whatsapp';
+import logo from '../assets/aurea-logo.jpg';
+
+const year = new Date().getFullYear();
+const instagramUrl = `https://instagram.com/${site.instagram}`;
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <span class="footer-badge">
+        <Image src={logo} alt={`Logotipo da ${site.name}`} width={64} widths={[64, 128]} sizes="64px" />
+      </span>
+      <p class="footer-slogan">{site.slogan}</p>
+    </div>
+
+    <div class="footer-contact">
+      <p class="footer-title">Contato</p>
+      <a href={buildWhatsAppLink(GENERAL_MESSAGE)} target="_blank" rel="noopener noreferrer">
+        💬 {site.whatsappDisplay}
+      </a>
+      <a href={instagramUrl} target="_blank" rel="noopener noreferrer">
+        📸 @{site.instagram}
+      </a>
+    </div>
+
+    <div class="footer-info">
+      <p class="footer-title">Entrega</p>
+      <p>{site.delivery}</p>
+    </div>
+  </div>
+
+  <div class="container footer-base">
+    <p class="footer-love">Feito com carinho em Foz do Iguaçu 💛</p>
+    <p>© {year} {site.name} · {site.tagline}</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding-block: 3rem 1.8rem;
+    background: var(--color-bg);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .footer-inner {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .footer-brand {
+    display: grid;
+    gap: 0.7rem;
+    justify-items: start;
+  }
+
+  .footer-badge {
+    display: inline-grid;
+    place-items: center;
+    padding: 0.25rem;
+    background: var(--color-surface-alt);
+    border-radius: var(--radius-sm);
+  }
+
+  .footer-badge :global(img) {
+    border-radius: calc(var(--radius-sm) - 4px);
+  }
+
+  .footer-slogan {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--color-primary);
+  }
+
+  .footer-title {
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+  }
+
+  .footer-contact {
+    display: grid;
+    gap: 0.35rem;
+    justify-items: start;
+  }
+
+  .footer-contact a {
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .footer-contact a:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+
+  .footer-info p {
+    max-width: 26rem;
+    font-size: 0.95rem;
+  }
+
+  .footer-base {
+    display: grid;
+    gap: 0.3rem;
+    justify-items: center;
+    margin-top: 2.5rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--color-border);
+    text-align: center;
+  }
+
+  .footer-love {
+    font-family: var(--font-display);
+    font-size: 1.45rem;
+    color: var(--color-primary);
+  }
+
+  .footer-base p:last-child {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+</style>

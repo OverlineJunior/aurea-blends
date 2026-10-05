@@ -1,0 +1,144 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import type { Product } from '../data/products';
+import Badge from './Badge.astro';
+import ImagePlaceholder from './ImagePlaceholder.astro';
+import { buildWhatsAppLink, productMessage } from '../lib/whatsapp';
+import { whatsappIcon } from '../lib/icons';
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+
+// fotos reais: basta salvar o arquivo em src/assets/products/ e preencher
+// o campo `image` do produto com o nome do arquivo — o card troca sozinho
+const photos = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/products/*.{jpg,jpeg,png,webp,avif}',
+);
+const photoKey = product.image ? `../assets/products/${product.image}` : undefined;
+const photoLoader = photoKey ? photos[photoKey] : undefined;
+
+if (product.image && !photoLoader) {
+  throw new Error(
+    `[products.ts] O produto "${product.id}" aponta para a imagem "${product.image}", mas nenhum arquivo corresponde em src/assets/products/.`,
+  );
+}
+
+const photo = photoLoader ? (await photoLoader()).default : undefined;
+---
+
+<article class="product-card" data-category={product.categoryId}>
+  {
+    photo ? (
+      <Image
+        class="card-photo"
+        src={photo}
+        alt={`Foto do produto ${product.name}`}
+        width={800}
+        height={600}
+        widths={[400, 800]}
+        sizes="(min-width: 62rem) 33vw, (min-width: 48rem) 50vw, 100vw"
+      />
+    ) : (
+      <ImagePlaceholder emoji={product.emoji} name={product.name} />
+    )
+  }
+  <div class="card-body">
+    <h3 class="card-title">{product.name}</h3>
+    <p class="card-desc">{product.description}</p>
+    <ul class="card-ingredients" aria-label={`Ingredientes do ${product.name}`}>
+      {product.ingredients.map((ingredient) => <li>{ingredient}</li>)}
+    </ul>
+    <p class="card-meta">
+      📦 {product.kit}{product.weight && <span> · {product.weight}</span>}
+    </p>
+    {product.validity && <p class="card-meta">🗓️ Validade: {product.validity}</p>}
+    <div class="card-badge">
+      <Badge label="Zero açúcar" emoji="🌿" />
+    </div>
+    <a
+      class="btn btn-primary card-cta"
+      href={buildWhatsAppLink(productMessage(product))}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <Fragment set:html={whatsappIcon} />
+      Pedir pelo WhatsApp
+    </a>
+  </div>
+</article>
+
+<style>
+  .product-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lift);
+  }
+
+  .product-card :global(.card-photo) {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    flex: 1;
+    padding: 1.4rem 1.5rem 1.6rem;
+  }
+
+  .card-title {
+    font-size: 1.75rem;
+    line-height: 1.05;
+  }
+
+  .card-desc {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+  }
+
+  .card-ingredients {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .card-ingredients li {
+    padding: 0.22rem 0.7rem;
+    background: var(--color-surface-alt);
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .card-meta {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+
+  .card-badge {
+    margin-top: 0.25rem;
+  }
+
+  .card-cta {
+    margin-top: auto;
+    width: 100%;
+  }
+</style>

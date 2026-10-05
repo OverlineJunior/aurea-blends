@@ -1,0 +1,117 @@
+---
+const steps = [
+  {
+    title: 'Escolha seu blend',
+    text: 'Cada kit vem em uma caixinha com 6 cápsulas — escolha os sabores que combinam com o seu momento.',
+  },
+  {
+    title: 'Coloque na caneca',
+    text: '1 cápsula + 200 ml de água quente (chás) ou leite quente (café e capuccino). Sem máquina, prometo.',
+  },
+  {
+    title: 'Mexa e aproveite',
+    text: 'Mexa com carinho até dissolver, respire fundo e aproveite. Seu momento, seu blend. 💛',
+  },
+];
+---
+
+<section id="como-preparar" class="section">
+  <div class="container">
+    <div class="section-head">
+      <p class="section-eyebrow">Como preparar</p>
+      <h2 class="section-title">Simples como um abraço</h2>
+      <p class="section-sub">
+        Nossas cápsulas não vão em máquina — elas derretem na caneca. É só seguir três passos.
+      </p>
+    </div>
+
+    <ol class="steps">
+      {
+        steps.map((step, index) => (
+          <li class="step">
+            <span class="step-num" aria-hidden="true">
+              {index + 1}
+            </span>
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div class="prep-notes">
+      <div class="prep-callout">
+        <p>
+          <strong>Sem máquina, sem complicação.</strong> As cápsulas da Auréa não são compatíveis
+          com máquinas de café (Nespresso, Dolce Gusto...) — e não precisam ser: elas são feitas
+          à mão para se dissolverem na sua caneca.
+        </p>
+      </div>
+      <div class="prep-callout">
+        <p>
+          <strong>E os pirulitos para drinks?</strong> Encaixe no copo, sirva a bebida e mexa —
+          simples assim.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1.5rem;
+  }
+
+  .step {
+    display: grid;
+    gap: 0.6rem;
+    justify-items: start;
+    align-content: start;
+    padding: 1.9rem 1.7rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .step-num {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    background: var(--color-surface-alt);
+    border: 2px solid var(--color-accent);
+    border-radius: 50%;
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .step h3 {
+    font-size: 1.9rem;
+  }
+
+  .step p {
+    font-size: 0.98rem;
+    color: var(--color-text-muted);
+  }
+
+  .prep-notes {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1.75rem;
+  }
+
+  .prep-callout {
+    padding: 1.15rem 1.5rem;
+    background: var(--color-surface);
+    border-left: 5px solid var(--color-accent);
+    border-radius: var(--radius-sm);
+  }
+
+  .prep-callout p {
+    max-width: 60rem;
+  }
+</style>

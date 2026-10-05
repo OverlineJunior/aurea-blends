@@ -1,0 +1,124 @@
+---
+import { Image } from 'astro:assets';
+import { site } from '../data/site';
+import { buildWhatsAppLink, GENERAL_MESSAGE } from '../lib/whatsapp';
+import { whatsappIcon } from '../lib/icons';
+import logo from '../assets/aurea-logo.jpg';
+
+const navLinks = [
+  { href: '#sobre', label: 'Sobre' },
+  { href: '#como-preparar', label: 'Como preparar' },
+  { href: '#blends', label: 'Blends' },
+  { href: '#depoimentos', label: 'Depoimentos' },
+  { href: '#faq', label: 'FAQ' },
+];
+---
+
+<header class="site-header" id="topo">
+  <div class="container header-inner">
+    <a class="brand" href="#topo" aria-label={`${site.name} — voltar ao início`}>
+      <span class="brand-badge">
+        <Image src={logo} alt={`Logotipo da ${site.name}`} width={44} widths={[44, 88, 132]} sizes="44px" />
+      </span>
+      <span class="brand-name">{site.name}</span>
+    </a>
+
+    <nav class="site-nav" aria-label="Navegação principal">
+      {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+    </nav>
+
+    <a
+      class="btn btn-primary btn-sm header-cta"
+      href={buildWhatsAppLink(GENERAL_MESSAGE)}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <Fragment set:html={whatsappIcon} />
+      Pedir no WhatsApp
+    </a>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--color-bg) 86%, transparent);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    min-height: 4.5rem;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    text-decoration: none;
+  }
+
+  /* o logo é JPG com fundo creme: o container creme o camufla */
+  .brand-badge {
+    display: grid;
+    place-items: center;
+    padding: 0.2rem;
+    background: var(--color-surface-alt);
+    border-radius: var(--radius-sm);
+  }
+
+  .brand-badge :global(img) {
+    border-radius: calc(var(--radius-sm) - 4px);
+  }
+
+  .brand-name {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--color-primary);
+  }
+
+  .site-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.35rem;
+    margin-inline: auto;
+  }
+
+  .site-nav a {
+    padding-block: 0.25rem;
+    font-size: 0.98rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--color-text);
+  }
+
+  .site-nav a:hover {
+    color: var(--color-primary);
+    text-decoration: underline wavy var(--color-accent) 2px;
+    text-underline-offset: 6px;
+  }
+
+  .header-cta {
+    margin-left: auto;
+  }
+
+  @media (max-width: 62rem) {
+    .site-nav {
+      display: none;
+    }
+  }
+
+  @media (max-width: 24rem) {
+    .brand-name {
+      display: none;
+    }
+  }
+</style>

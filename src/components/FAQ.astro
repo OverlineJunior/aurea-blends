@@ -1,0 +1,105 @@
+---
+import { site } from '../data/site';
+
+const faqs = [
+  {
+    question: 'Como faço meu pedido?',
+    answer:
+      'Tudo pelo WhatsApp: escolha seus blends e chame a gente. Respondemos com carinho e ajudamos a montar seu kit.',
+  },
+  {
+    question: 'Preciso de máquina de café?',
+    answer:
+      'Não! É só colocar a cápsula na caneca, adicionar 200 ml de água quente (chás) ou leite quente (café e capuccino) e mexer.',
+  },
+  {
+    question: 'Vocês entregam?',
+    answer: site.delivery,
+  },
+  {
+    question: 'Qual a validade?',
+    answer: 'Cada blend tem a sua validade — consulte no rótulo ou pergunte no WhatsApp.',
+  },
+  {
+    question: 'Tem açúcar?',
+    answer: 'Não: zero açúcar, com ingredientes 100% naturais.',
+  },
+];
+---
+
+<section id="faq" class="section section-alt">
+  <div class="container faq-container">
+    <div class="section-head">
+      <p class="section-eyebrow">FAQ</p>
+      <h2 class="section-title">Perguntas frequentes</h2>
+    </div>
+
+    <div class="faq-list">
+      {
+        faqs.map((faq) => (
+          <details class="faq-item">
+            <summary>
+              {faq.question}
+              <span class="faq-icon" aria-hidden="true">
+                +
+              </span>
+            </summary>
+            <p class="faq-answer">{faq.answer}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-container {
+    max-width: 46rem;
+  }
+
+  .faq-list {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .faq-item {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+  }
+
+  .faq-item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.1rem 1.4rem;
+    font-weight: 800;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-icon {
+    font-size: 1.4rem;
+    line-height: 1;
+    color: var(--color-primary);
+    transition: transform 0.2s ease;
+  }
+
+  .faq-item[open] .faq-icon {
+    transform: rotate(45deg);
+  }
+
+  .faq-item[open] summary {
+    color: var(--color-primary);
+  }
+
+  .faq-answer {
+    padding: 0 1.4rem 1.2rem;
+    color: var(--color-text-muted);
+  }
+</style>

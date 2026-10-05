@@ -1,0 +1,105 @@
+---
+import { site } from '../data/site';
+import Badge from './Badge.astro';
+---
+
+<section id="sobre" class="section section-alt">
+  <div class="container about-inner">
+    <div class="about-copy">
+      <p class="section-eyebrow">Sobre a Auréa</p>
+      <h2 class="section-title">Feito à mão, com propósito</h2>
+      <p>
+        A Auréa Blends nasceu da união entre a paixão pela arte, o cultivo do próprio chá e a
+        conexão com o meio ambiente, a sustentabilidade e o sabor. Cada blend é pensado como uma
+        obra de arte — porque é.
+      </p>
+      <p>
+        As cápsulas são verdadeiras pequenas joias: blends em forma de rosas, esculpidos à mão,
+        fruto de longos períodos de estudos e cursos até chegar a sabores equilibrados e
+        marcantes.
+      </p>
+      <p class="about-highlight">Tudo isso é feito à mão, com carinho, em Foz do Iguaçu 💛</p>
+      <ul class="about-badges" aria-label="Diferenciais da Auréa Blends">
+        {
+          site.badges.map((badge) => (
+            <li>
+              <Badge label={badge} />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <figure class="about-quote">
+      <span class="quote-emoji" aria-hidden="true">🌹</span>
+      <blockquote>{site.tagline}</blockquote>
+      <figcaption>— {site.name}</figcaption>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .about-inner {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(2.5rem, 6vw, 4.5rem);
+    align-items: center;
+  }
+
+  .about-copy {
+    display: grid;
+    gap: 1.1rem;
+    justify-items: start;
+  }
+
+  .about-highlight {
+    font-weight: 800;
+    color: var(--color-primary);
+  }
+
+  .about-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 0.4rem;
+  }
+
+  .about-quote {
+    display: grid;
+    gap: 0.9rem;
+    justify-items: start;
+    padding: 2.4rem 2.2rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    transform: rotate(1.5deg);
+  }
+
+  .quote-emoji {
+    font-size: 3rem;
+    line-height: 1;
+  }
+
+  .about-quote blockquote {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3vw, 2.2rem);
+    line-height: 1.2;
+  }
+
+  .about-quote figcaption {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-text-muted);
+  }
+
+  @media (max-width: 62rem) {
+    .about-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .about-quote {
+      max-width: 30rem;
+    }
+  }
+</style>

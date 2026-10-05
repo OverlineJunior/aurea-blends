@@ -1,0 +1,41 @@
+/* ============================================================
+   Auréa Blends — tokens de design
+   ÚNICO arquivo com cores. Trocar a paleta da marca = editar aqui.
+   ============================================================ */
+
+:root {
+  /* ── Paleta oficial (extraída do logo e do material de marketing) ── */
+  --brand-cream:        #E4D4C4;
+  --brand-cream-rose:   #EBD0BB;
+  --brand-sand:         #C9A48C;
+  --brand-gold:         #C3AC8A;
+  --brand-caramel:      #785018;
+  --brand-caramel-soft: #82602E;
+  --brand-terracotta:   #906348;
+
+  /* ── Tokens semânticos (use SÓ estes nos componentes) ── */
+  --color-bg:            #F7F0E7;  /* fundo da página (creme claro) */
+  --color-surface:       #EFE2D3;  /* cards */
+  --color-surface-alt:   #E4D4C4;  /* seções alternadas */
+  --color-text:          #3F2E1B;  /* marrom-café escuro (contraste ~10:1) */
+  --color-text-muted:    #6E5C46;
+  --color-primary:       #785018;  /* CTAs (caramelo do logo) */
+  --color-primary-hover: #82602E;
+  --color-on-primary:    #FBF6EF;  /* texto sobre caramelo (~6:1) */
+  --color-accent:        #906348;  /* selos, bordas decorativas, detalhes */
+  --color-border:        #DCC9B4;
+
+  /* ── Sombras (marrom do texto em rgb, para herdar da paleta) ── */
+  --shadow-soft: 0 6px 18px rgb(63 46 27 / 0.08);
+  --shadow-lift: 0 14px 34px rgb(63 46 27 / 0.16);
+
+  /* ── Tipografia (self-hosted via @fontsource-variable) ── */
+  --font-display: 'Caveat Variable', 'Caveat', 'Segoe Script', cursive;
+  --font-body: 'Nunito Variable', 'Nunito', 'Segoe UI', system-ui, sans-serif;
+
+  /* ── Forma e ritmo ── */
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --radius-full: 999px;
+}

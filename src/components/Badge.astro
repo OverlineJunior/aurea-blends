@@ -1,0 +1,28 @@
+---
+interface Props {
+  label: string;
+  emoji?: string;
+}
+
+const { label, emoji } = Astro.props;
+---
+
+<span class="badge">
+  {emoji && <span aria-hidden="true">{emoji}</span>}
+  {label}
+</span>
+
+<style>
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.28rem 0.8rem;
+    background: var(--color-surface);
+    border: 1.5px solid var(--color-accent);
+    border-radius: var(--radius-full);
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: var(--color-text);
+  }
+</style>
